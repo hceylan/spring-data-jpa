@@ -43,7 +43,7 @@ public class SampleEntity {
 			return true;
 		}
 
-		if (!getClass().equals(obj.getClass())) {
+		if (!(obj instanceof SampleEntity)) {
 			return false;
 		}
 

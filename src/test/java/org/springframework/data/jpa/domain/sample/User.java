@@ -15,6 +15,7 @@
  */
 package org.springframework.data.jpa.domain.sample;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -55,6 +58,7 @@ public class User {
 	private String emailAddress;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(joinColumns = @JoinColumn(name = "User_Id"), inverseJoinColumns = @JoinColumn(name = "Colleague_Id"))
 	private Set<User> colleagues;
 
 	@ManyToMany
@@ -70,7 +74,7 @@ public class User {
 
 		this.roles = new HashSet<Role>();
 		this.colleagues = new HashSet<User>();
-		this.createdAt = new Date();
+		this.createdAt = new Timestamp(new Date().getTime());
 	}
 
 	/**

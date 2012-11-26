@@ -367,7 +367,7 @@ public abstract class QueryUtils {
 	static <T> Expression<T> toExpressionRecursively(From<?, ?> from, PropertyPath property) {
 
 		if (property.isCollection()) {
-			Join<Object, Object> join = from.join(property.getSegment());
+			Join<Object, Object> join = (Join<Object, Object>) from.join(property.getSegment());
 			return (Expression<T>) (property.hasNext() ? toExpressionRecursively((From<?, ?>) join, property.next()) : join);
 		} else {
 			Path<Object> path = from.get(property.getSegment());

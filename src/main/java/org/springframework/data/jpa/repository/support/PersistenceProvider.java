@@ -21,6 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import org.apache.openjpa.persistence.OpenJPAQuery;
+import org.batoo.jpa.core.impl.criteria.QueryImpl;
 import org.eclipse.persistence.jpa.JpaQuery;
 import org.hibernate.ejb.HibernateQuery;
 import org.springframework.data.jpa.repository.query.QueryExtractor;
@@ -33,6 +34,16 @@ import org.springframework.util.Assert;
  */
 public enum PersistenceProvider implements QueryExtractor {
 
+	/**
+	 * Batoo JPA persistence provider.
+	 */
+	BATOO("org.batoo.jpa.core.BatooEntityManager"){
+
+		public String extractQueryString(Query query) {
+			return ((QueryImpl<?>) query).getJpql();
+		}
+	},
+	
 	/**
 	 * Hibernate persistence provider.
 	 */
